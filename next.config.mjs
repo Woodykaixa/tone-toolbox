@@ -1,6 +1,8 @@
 import withOffline from "next-offline";
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = withOffline({});
+nextConfig.generateStaticParams = nextConfig.exportPathMap;
+nextConfig.exportPathMap = undefined;
 
-export default withOffline(nextConfig);
+export default nextConfig;
