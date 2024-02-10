@@ -1,0 +1,13 @@
+{
+	"short_name": "视唱练耳",
+	"name": "Woodykaixa 视唱练耳工具箱",
+	"icon": [
+		{
+			"src": "next.svg",
+			"type": "image/svg",
+			"sizes": "48x48"
+		}
+	],
+	"display": "standalone",
+	"start_url": "/"
+}
