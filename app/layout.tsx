@@ -5,6 +5,9 @@ import { Menu, MenuProps } from "antd";
 import classNames from "classnames";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Link from "next/link";
+import Script from "next/script";
+import Head from "next/head";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +32,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="zh-CN">
+			<Script
+				strategy="lazyOnload"
+				src="/_next/static/service-worker.js"
+			></Script>
 			<body
 				className={classNames(
 					inter.className,
