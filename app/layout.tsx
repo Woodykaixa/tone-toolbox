@@ -7,9 +7,10 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Link from "next/link";
 import Script from "next/script";
 import Head from "next/head";
-import { useEffect } from "react";
+import { ConfigProvider, theme } from "antd";
 import { once } from "events";
 import Sw from "@/sw";
+import Theme from "@/stupid-next/theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,14 +45,16 @@ export default function RootLayout({
 				)}
 			>
 				<AntdRegistry>
-					<Menu
-						items={items}
-						mode="horizontal"
-						className="fixed top-0 left-0 w-full"
-					/>
-					<div className="w-full max-w-3xl pt-12 self-center min-h-screen">
-						{children}
-					</div>
+					<Theme>
+						<Menu
+							items={items}
+							mode="horizontal"
+							className="fixed top-0 left-0 w-full"
+						/>
+						<div className="w-full max-w-3xl pt-12 self-center min-h-screen">
+							{children}
+						</div>
+					</Theme>
 				</AntdRegistry>
 			</body>
 		</html>
