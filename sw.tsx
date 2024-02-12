@@ -1,18 +1,13 @@
 "use client";
 
-import Script from "next/script";
 import { useEffect } from "react";
 
 const registerServiceWorker = async () => {
 	if (navigator && "serviceWorker" in navigator) {
 		try {
-			console.log("开始安装 Service worker");
-			const registration = await navigator.serviceWorker.register(
-				"/_next/static/service-worker.js",
-				{
-					scope: "/",
-				}
-			);
+			const registration = await navigator.serviceWorker.register("sw.js", {
+				scope: "/",
+			});
 			if (registration.installing) {
 				console.log("正在安装 Service worker");
 			} else if (registration.waiting) {
