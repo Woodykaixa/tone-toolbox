@@ -15,8 +15,7 @@ const nextConfig = {
 							"react-loadable-manifest.json",
 							"build-manifest.json",
 							"app-build-manifest.json",
-							/_next\/app/,
-							/_next\/server/,
+							/^server/,
 							/\.map$/,
 						],
 						modifyURLPrefix: {
