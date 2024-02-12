@@ -14,6 +14,7 @@ const nextConfig = {
 						exclude: [
 							"react-loadable-manifest.json",
 							"build-manifest.json",
+							"app-build-manifest.json",
 							/\.map$/,
 						],
 						modifyURLPrefix: {
