@@ -1,8 +1,42 @@
-import withOffline from "next-offline";
-
+// import withOffline from "next-offline";
+import { join } from "path";
+import process from "process";
+import { GenerateSW } from "workbox-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 /** @type {import('next').NextConfig} */
-const nextConfig = withOffline({});
-nextConfig.generateStaticParams = nextConfig.exportPathMap;
-nextConfig.exportPathMap = undefined;
-
+const nextConfig = {
+	webpack: (config, options) => {
+		config.plugins.push(
+			new GenerateSW({
+				exclude: [
+					"react-loadable-manifest.json",
+					"build-manifest.json",
+					/\.map$/,
+				],
+				modifyURLPrefix: {
+					"static/": "_next/static/",
+					"public/": "_next/public/",
+				},
+				inlineWorkboxRuntime: true,
+				runtimeCaching: [
+					{
+						urlPattern: /^https?.*/,
+						handler: "NetworkFirst",
+						options: {
+							cacheName: "offlineCache",
+							expiration: {
+								maxEntries: 200,
+							},
+						},
+					},
+				],
+				swDest: "./static/service-worker.js",
+			})
+			// new CopyWebpackPlugin({
+			// 	patterns: [{ from: `${join(process.cwd(), ".next/static")}/**/*` }],
+			// })
+		);
+		return config;
+	},
+};
 export default nextConfig;
