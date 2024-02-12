@@ -7,6 +7,9 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Link from "next/link";
 import Script from "next/script";
 import Head from "next/head";
+import { useEffect } from "react";
+import { once } from "events";
+import Sw from "@/sw";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,32 +29,6 @@ const items: MenuProps["items"] = [
 	},
 ];
 
-const registerServiceWorker = async () => {
-	if ("serviceWorker" in navigator) {
-		try {
-			const registration = await navigator.serviceWorker.register(
-				"/_next/static/service-worker.js",
-				{
-					scope: "/",
-				}
-			);
-			if (registration.installing) {
-				console.log("正在安装 Service worker");
-			} else if (registration.waiting) {
-				console.log("已安装 Service worker installed");
-			} else if (registration.active) {
-				console.log("激活 Service worker");
-			}
-		} catch (error) {
-			console.error(`注册失败：${error}`);
-		}
-	}
-};
-
-// …
-
-registerServiceWorker();
-
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -59,10 +36,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="zh-CN">
-			{/* <Script
-				strategy="lazyOnload"
-				src="/_next/static/service-worker.js"
-			></Script> */}
+			<Sw />
 			<body
 				className={classNames(
 					inter.className,
